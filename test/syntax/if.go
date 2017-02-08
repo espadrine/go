@@ -15,4 +15,12 @@ func main() {
 	
 	if x(); {  // ERROR "missing condition"
 	}
+	
+	if
+	{  // ERROR "missing condition"
+	}
+	
+	if x()
+	{  // ERROR "missing {"
+	}
 }

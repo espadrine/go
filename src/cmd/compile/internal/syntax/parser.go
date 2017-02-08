@@ -1765,9 +1765,16 @@ func (p *parser) ifStmt() *IfStmt {
 	s.init(p)
 
 	p.want(_If)
+	linePreIfParse := p.line
 	s.Init, s.Cond, _ = p.header(false)
 	if s.Cond == nil {
-		p.syntax_error("missing condition in if statement")
+		linePostIfParse := p.line
+		missingIfCondition := linePreIfParse == linePostIfParse
+		if missingIfCondition {
+			p.syntax_error("missing condition in if statement")
+		} else {
+			p.syntax_error("missing { after if clause")
+		}
 	}
 
 	if gcCompat {
